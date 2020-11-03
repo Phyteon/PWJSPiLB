@@ -6,11 +6,11 @@ def list_dir(path):
     spacers = len(path.split("\\"))
     buff = (spacers - 1) * "| "
     for name in read:
-        if (path + "\\" + name).isdir:
-            print(buff + "|--" + name)
+        if os.path.isdir(path + "\\" + name):
+            print(buff + "--" + name)
             content = os.listdir(path + "\\" + name)
             for cont in content:
-                if (path + "\\" + name + "\\" + cont).isdir:
+                if os.path.isdir(path + "\\" + name + "\\" + cont):
                     list_dir(path + "\\" + name + "\\" + cont)
                 else:
                     print(buff + "| " + cont)
