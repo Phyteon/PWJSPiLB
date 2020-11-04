@@ -11,6 +11,7 @@ def list_dir(path):
             content = os.listdir(path + "\\" + name)
             for cont in content:
                 if os.path.isdir(path + "\\" + name + "\\" + cont):
+                    print(buff + "| --" + cont)
                     list_dir(path + "\\" + name + "\\" + cont)
                 else:
                     print(buff + "| " + cont)
