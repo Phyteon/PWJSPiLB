@@ -1,5 +1,7 @@
 import io
 
+# TODO: Fix the function!!!
+
 
 def change_words(list, to_replace, file):
     with io.open(file, 'r', encoding='utf8') as f:
