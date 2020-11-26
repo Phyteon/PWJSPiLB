@@ -1,4 +1,7 @@
 
+import copy
+
+
 def radix_lsd_sort(data):
     volume = len(data)
     sym_data = []
@@ -20,45 +23,21 @@ def radix_lsd_sort(data):
         control = 0
         aux_buckets = []
         for nd in range(0, 10):
-            wtf = buckets[:]
+            wtf = copy.deepcopy(buckets)
             aux = []
             for nested in buckets:
                 if len(nested) > 0:
                     for element in nested:
                         global_idx = buckets.index(nested)
-                        local_idx = nested.index(element)
                         if -n_of_digit > len(element):
                             control += 1
-                            if len(aux_buckets) == 0:
-                                aux_buckets.append([element])
-                                wtf[global_idx].pop(local_idx)
-                            elif len(aux_buckets[0][0]) < -n_of_digit:
-                                aux_buckets[0].append(element)
-                                wtf[global_idx].pop(local_idx)
-                            elif aux_buckets[0][0][n_of_digit] == '0':
-                                aux_buckets[0].append(element)
-                                wtf[global_idx].pop(local_idx)
-                            else:
-                                aux_buckets.insert(0, [element])
-                                wtf[global_idx].pop(local_idx)
+                            local_idx = wtf[global_idx].index(element)
+                            aux.append(element)
+                            wtf[global_idx].pop(local_idx)
                         elif str(nd) == element[n_of_digit]:
-                            if nd == 0:
-                                if len(aux_buckets) != 0:
-                                    if len(aux_buckets[0][0]) < -n_of_digit:
-                                        aux_buckets[0].append(element)
-                                        wtf[global_idx].pop(local_idx)
-                                    elif aux_buckets[0][0][n_of_digit] == '0':
-                                        aux_buckets[0].append(element)
-                                        wtf[global_idx].pop(local_idx)
-                                    else:
-                                        aux.append(element)
-                                        wtf[global_idx].pop(local_idx)
-                                else:
-                                    aux_buckets.append([element])
-                                    wtf[global_idx].pop(local_idx)
-                            else:
-                                aux.append(element)
-                                wtf[global_idx].pop(local_idx)
+                            local_idx = wtf[global_idx].index(element)
+                            aux.append(element)
+                            wtf[global_idx].pop(local_idx)
 
             if len(aux) > 0:
                 aux_buckets.append(aux)
@@ -71,6 +50,7 @@ def radix_lsd_sort(data):
             n_of_digit -= 1
     srtd = []
     for elem_list in buckets:
-        for elem in elem_list:
-            srtd.append(int(elem))
+        if len(elem_list) > 0:
+            for elem in elem_list:
+                srtd.append(int(elem))
     return srtd
