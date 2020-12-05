@@ -19,6 +19,10 @@ class Complex:
             fil = ""
         return str(self.real) + fil + str(self.imag) + "i"
 
+    def __truediv__(self, other):
+        coef = other.real**2 + other.imag**2
+        return Complex((self.real*other.real+self.imag*other.imag)/coef, (self.imag*other.imag-self.real*other.real)/coef)
+
     def __mul__(self, other):
         return Complex(self.real*other.real-self.imag*other.imag, self.real*other.imag+self.imag*other.real)
 
