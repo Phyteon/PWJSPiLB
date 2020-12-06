@@ -45,3 +45,52 @@ def parse_calc_input(string):
             print("Invalid syntax")
             return False
         idx += 1
+    for priority_group in special_groups:
+        for sym in priority_group:
+            if sym in modified:
+                while sym in modified:
+                    sym_idx = modified.index(sym)
+                    if priority_group == special_groups[0]:
+                        if sym_idx == 0 or sym_idx == len(modified)-1:
+                            print("Invalid syntax")
+                            return False
+                        if sym == "*":
+                            zx = modified[sym_idx-1] * modified[sym_idx+1]
+                            modified.pop(sym_idx)
+                            modified.pop(sym_idx)
+                            modified.pop(sym_idx-1)
+                            modified.insert(sym_idx-1, zx)
+                        else:
+                            zx = modified[sym_idx - 1] / modified[sym_idx + 1]
+                            modified.pop(sym_idx)
+                            modified.pop(sym_idx)
+                            modified.pop(sym_idx - 1)
+                            modified.insert(sym_idx-1, zx)
+                    else:
+                        if sym_idx == len(modified)-1:
+                            print("Invalid syntax")
+                            return False
+                        if sym == "+":
+                            if sym_idx == 0:
+                                print("Invalid syntax")
+                                return False
+                            zx = modified[sym_idx - 1] + modified[sym_idx + 1]
+                            modified.pop(sym_idx)
+                            modified.pop(sym_idx)
+                            modified.pop(sym_idx - 1)
+                            modified.insert(sym_idx - 1, zx)
+                        else:
+                            if sym_idx == 0:
+                                zx = Complex(0, 0) - modified[1]
+                                modified.pop(sym_idx)
+                                modified.pop(sym_idx)
+                                modified.insert(sym_idx, zx)
+                            else:
+                                zx = modified[sym_idx - 1] - modified[sym_idx + 1]
+                                modified.pop(sym_idx)
+                                modified.pop(sym_idx)
+                                modified.pop(sym_idx - 1)
+                                modified.insert(sym_idx - 1, zx)
+    if len(modified) > 1:
+        print("Error occured")
+    return modified[0]
