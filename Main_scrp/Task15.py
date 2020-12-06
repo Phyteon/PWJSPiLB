@@ -21,7 +21,7 @@ class Complex:
 
     def __truediv__(self, other):
         coef = other.real**2 + other.imag**2
-        return Complex((self.real*other.real+self.imag*other.imag)/coef, (self.imag*other.imag-self.real*other.real)/coef)
+        return Complex((self.real*other.real+self.imag*other.imag)/coef, (self.imag*other.real-self.real*other.imag)/coef)
 
     def __mul__(self, other):
         return Complex(self.real*other.real-self.imag*other.imag, self.real*other.imag+self.imag*other.real)

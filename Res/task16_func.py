@@ -14,13 +14,16 @@ def parse_calc_input(string):
                 idx += 1
                 if idx == len(string):
                     break
-            if idx == len(string):
-                break
             str_num = ''.join(temp)
             num = float(str_num)
-            if string[idx] == "i":
-                z = Complex(0, num)
-                modified.append(z)
+            if idx != len(string):
+                if string[idx] == "i":
+                    z = Complex(0, num)
+                    modified.append(z)
+                else:
+                    idx -= 1
+                    z = Complex(num, 0)
+                    modified.append(z)
             else:
                 z = Complex(num, 0)
                 modified.append(z)
@@ -30,6 +33,10 @@ def parse_calc_input(string):
             nested = ""
             idx += 1
             while string[idx] != ")":
+                if string[idx] == "(":
+                    while string[idx] != ")":
+                        nested += string[idx]
+                        idx += 1
                 nested += string[idx]
                 idx += 1
                 if idx == len(string):
