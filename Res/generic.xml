@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?><student>
+	<firstName>Grzegorz</firstName>
+	<lastName>Brzęczyszykiewicz</lastName>
+	<age>30</age>
+	<height val="183 cm"/>
+	<lang lng="Polski"/></student>
